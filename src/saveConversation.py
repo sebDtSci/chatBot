@@ -35,6 +35,6 @@ def delete_conversation(title):
         df = load_conversations()
         df = df[df["Titre"] != title]
         df.to_csv("conversations.csv", index=False, sep=";")
-        st.success("Conversation supprimée avec succès !")
+        st.sidebar.success("Conversation supprimée avec succès !")
     except Exception as e:
-        st.error(f"Erreur lors de la suppression de la conversation: {e}")
+        st.sidebar.error(f"Erreur lors de la suppression de la conversation: {e}")
