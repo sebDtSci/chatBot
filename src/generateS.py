@@ -21,37 +21,24 @@ class Generate:
         result = ollama.generate(
             model=self.model,
             prompt=prompt,
-            stream=False,
+            # stream=False,
+            stream=True,
             options=self._ollama_option
         )
-        self.response = result['response']
+        
+        ## Stream False:
+        
+        # self.response = result['response']
+        # self.memory.update_memory(user_input, self.response)
+        # self.running = False
+        # return self.response
+        
+        ## Stream True:
+        
+        self.response = ""
+        for chunk in result:
+            self.response += chunk['response']
+            yield chunk['response']
+        
         self.memory.update_memory(user_input, self.response)
-        # self.memory.update_memory('last_response', self.response)
         self.running = False
-        return self.response
-
-# import ollama
-# from memory import ChatbotMemory
-
-# class Generate:
-#     def __init__(self, model, ollama_options=None):
-#         self.model = model
-#         self._ollama_option = ollama_options if ollama_options else {'temperature': 1}
-#         self.memory = ChatbotMemory()
-#         self.running = False
-#         self.response = ""
-
-#     def ans(self, user_input) -> str:
-#         self.running = True
-#         self.response = ""
-#         result = ollama.generate(
-#             model=self.model,
-#             prompt=user_input,
-#             stream=False,
-#             options=self._ollama_option
-#         )
-#         self.response = result['response']
-#         self.memory.add_conversation(user_input, self.response)
-#         self.memory.update_memory('last_response', self.response)
-#         self.running = False
-#         return self.response
