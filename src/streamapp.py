@@ -99,8 +99,8 @@ def main():
         st.markdown(user_message, unsafe_allow_html=True)
 
     save_title = st.text_input("Sauvegarder la conversation en tant que :", key="save_title")
-    if st.button("Save") and save_title:
-        save_conversation(save_title, st.session_state.history)
+    # if st.button("Save") and save_title:
+    #     save_conversation(save_title, st.session_state.history)
     if st.button("Save and reload") and save_title:
         save_conversation(save_title, st.session_state.history)
         st.rerun()
