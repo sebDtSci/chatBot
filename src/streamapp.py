@@ -34,7 +34,8 @@ def main():
     if st.button("Send") and user_input:
         # Afficher le message de l'utilisateur immédiatement
         st.session_state.history.append({"user": user_input, "bot": ""})
-        st.experimental_rerun()
+        # st.experimental_rerun()
+        st.st.rerun()
 
     # Gestion des réponses du chatbot après l'envoi du message
     if st.session_state.history and st.session_state.history[-1]["bot"] == "":
@@ -52,7 +53,8 @@ def main():
             """, unsafe_allow_html=True)
         
         st.session_state.history[-1]["bot"] = response
-        st.experimental_rerun()
+        # st.experimental_rerun()
+        st.st.rerun()
     
     # Affichage de l'historique des conversations
     for chat in reversed(st.session_state.history):
