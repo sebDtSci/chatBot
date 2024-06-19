@@ -33,14 +33,22 @@ def main():
     selected_conversation = st.sidebar.selectbox("Sélectionnez une conversation", conversation_titles)
     if st.sidebar.button("Load") and selected_conversation:
         chatbot.remember(conversations_df)    
-
-    user_input = st.text_input("You:", key="input")
-
-    if st.button("Send") and user_input:
-        st.session_state.user_input = ""
-        # Afficher le message de l'utilisateur immédiatement
+        
+##################################
+    # Méthode 1:
+    # user_input = st.text_input("You:", key="input")
+    # if st.button("Send") and user_input:
+    #     # Afficher le message de l'utilisateur immédiatement
+    #     st.session_state.history.append({"user": user_input, "bot": ""})
+    #     st.rerun()
+    # Méthode 2:
+    with st.form('question', clear_on_submit=True):
+        user_input = st.text_input("You:", key="input")
+        submitted = st.form_submit_button("Submit")
+    if submitted and user_input:
         st.session_state.history.append({"user": user_input, "bot": ""})
         st.rerun()
+##################################
 
     # Gestion des réponses du chatbot après l'envoi du message
     if st.session_state.history and st.session_state.history[-1]["bot"] == "":
