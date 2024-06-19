@@ -61,7 +61,7 @@ def main():
         user_message = f"""
         <div style="text-align: right; padding: 10px; margin: 10px 0;">
             <div><b>Vous:</b></div>
-            <div style="background-color: #GREEN; border-radius: 10px; padding: 10px;">
+            <div style="background-color: #2471A3; border-radius: 10px; padding: 10px;">
                 {chat['user']}
             </div>
         </div>
@@ -69,7 +69,7 @@ def main():
         bot_message = f"""
         <div style="text-align: left; padding: 10px; margin: 10px 0;">
             <div><b>Stem:</b></div>
-            <div style="background-color: #BLUE; border-radius: 10px; padding: 10px;">
+            <div style="background-color: #229954; border-radius: 10px; padding: 10px;">
                 {chat['bot']}
             </div>
         </div>
