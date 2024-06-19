@@ -47,7 +47,7 @@ def main():
         for chunk in response_generator:
             response += chunk
             response_placeholder.markdown(f"""
-            <div style="text-align: left; background-color: #4DF5E1; padding: 10px; border-radius: 10px; margin: 10px 0;">
+            <div style="text-align: left; background-color: #229954 ; padding: 10px; border-radius: 10px; margin: 10px 0;">
                 <b>Stem:</b> {response}
             </div>
             """, unsafe_allow_html=True)
@@ -59,12 +59,12 @@ def main():
     # Affichage de l'historique des conversations
     for chat in reversed(st.session_state.history):
         user_message = f"""
-        <div style="text-align: right; background-color: #4DF5AE; padding: 10px; border-radius: 10px; margin: 10px 0;">
+        <div style="text-align: right; background-color: #2471A3; padding: 10px; border-radius: 10px; margin: 10px 0;">
             <b>Vous:</b> {chat['user']}
         </div>
         """
         bot_message = f"""
-        <div style="text-align: left; background-color: #4DF5E1; padding: 10px; border-radius: 10px; margin: 10px 0;">
+        <div style="text-align: left; background-color: #229954 ; padding: 10px; border-radius: 10px; margin: 10px 0;">
             <b>Stem:</b> {chat['bot']}
         </div>
         """
