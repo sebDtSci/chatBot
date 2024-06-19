@@ -43,7 +43,9 @@ def main():
     #     st.rerun()
     # Méthode 2:
     with st.form('question', clear_on_submit=True):
-        user_input = st.text_input("You:", key="input")
+        # text_area pour gérer la taille de manière dynamique
+        user_input = st.text_area("You:", key="input", height=100)
+        # user_input = st.text_input("You:", key="input")
         submitted = st.form_submit_button("Submit")
     if submitted and user_input:
         st.session_state.history.append({"user": user_input, "bot": ""})
