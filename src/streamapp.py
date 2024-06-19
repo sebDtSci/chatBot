@@ -23,10 +23,10 @@ def main():
     st.sidebar.title("Conversations sauvegardées")
     conversation_titles = conversations_df["Titre"].tolist()
     selected_conversation = st.sidebar.selectbox("Sélectionnez une conversation", conversation_titles)
-    if selected_conversation:
-        conversation_data = conversations_df[conversations_df["Titre"] == selected_conversation]["Conversation"].values[0]
+    if st.button("Load") and selected_conversation:
+        # conversation_data = conversations_df[conversations_df["Titre"] == selected_conversation]["Conversation"].values[0]
         Generate.remember(conversations_df)
-        st.sidebar.text_area("Conversation", conversation_data, height=400)
+        # st.sidebar.text_area("Conversation", conversation_data, height=400)
     
 
     user_input = st.text_input("You:", key="input")

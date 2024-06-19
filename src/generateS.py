@@ -1,5 +1,6 @@
 import ollama
 from src.memory import ChatbotMemory
+import streamlit as st
 
 class Generate:
     def __init__(self, model, ollama_options=None):
@@ -10,8 +11,12 @@ class Generate:
         self.response = ""
     
     def remember(self, sauvegarde):
-        for lines in sauvegarde:
-            self.memory.update_memory(lines['user'], lines['bot'])
+        try:
+            for lines in sauvegarde:
+                self.memory.update_memory(lines['user'], lines['bot'])
+            st.success("Load !")
+        except Exception as e:
+            st.error(f"Error : {e}")
         
 
     def ans(self, user_input) -> str:
