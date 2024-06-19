@@ -18,6 +18,7 @@ def main():
     if "history" not in st.session_state:
         st.session_state.history = []
 
+    # Espace de saisie de l'utilisateur
     user_input = st.text_input("You:", key="input")
 
     if st.button("Send") and user_input:
@@ -45,7 +46,8 @@ def main():
         
         # Mettre à jour la réponse dans l'historique
         st.session_state.history[-1]["bot"] = response
-        st.session_state.input = ""
+        # Réinitialiser le champ de saisie
+        st.session_state["input"] = ""
 
     # Affichage de l'historique des conversations
     for chat in reversed(st.session_state.history):
