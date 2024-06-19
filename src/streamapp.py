@@ -46,11 +46,20 @@ def main():
 
         for chunk in response_generator:
             response += chunk
+            # response_placeholder.markdown(f"""
+            # <div style="text-align: left; background-color: #229954 ; padding: 10px; border-radius: 10px; margin: 10px 0;">
+            #     <b>Stem:</b> {response}
+            # </div>
+            # """, unsafe_allow_html=True)
+            
             response_placeholder.markdown(f"""
-            <div style="text-align: left; background-color: #229954 ; padding: 10px; border-radius: 10px; margin: 10px 0;">
-                <b>Stem:</b> {response}
+        <div style="text-align: left; padding: 10px; margin: 10px 0;">
+            <div><b>Stem:</b></div>
+            <div style="background-color: #229954; border-radius: 10px; padding: 10px;">
+                {response}
             </div>
-            """, unsafe_allow_html=True)
+        </div>
+        """, unsafe_allow_html=True)
         
         st.session_state.history[-1]["bot"] = response
         # st.experimental_rerun()
