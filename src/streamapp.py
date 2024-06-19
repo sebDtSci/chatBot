@@ -30,7 +30,7 @@ def main():
             # écrit le message de l'utilisateur dans le streamlit
             user_message = f"""
             <div style="text-align: right; background-color: #GREEN; padding: 10px; border-radius: 10px; margin: 10px 0;">
-                <b>Vous:</b> {chat['user']}
+                <b>Vous:</b> {user_input}
             </div>
             """
             st.markdown(user_message, unsafe_allow_html=True)
