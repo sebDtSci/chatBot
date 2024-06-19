@@ -1,0 +1,7 @@
+{
+    "git.alwaysShowStagedChangesResourceGroup": false,
+    "files.exclude": {
+        "**/.git": false,
+        "**/CVS": false
+    }
+}

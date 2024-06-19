@@ -1,5 +1,5 @@
 import ollama
-from memory import ChatbotMemory
+from src.memory import ChatbotMemory
 from transformers import pipeline
 
 class Generate():

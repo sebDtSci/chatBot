@@ -1,6 +1,6 @@
 import ollama
 from transformers import pipeline
-from memory import ChatbotMemory
+from src.memory import ChatbotMemory
 
 class Generate:
     def __init__(self, model, prompt, ollama_options=None):
