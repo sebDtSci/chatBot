@@ -37,6 +37,7 @@ def main():
     user_input = st.text_input("You:", key="input")
 
     if st.button("Send") and user_input:
+        st.session_state.user_input = ""
         # Afficher le message de l'utilisateur immédiatement
         st.session_state.history.append({"user": user_input, "bot": ""})
         st.rerun()
