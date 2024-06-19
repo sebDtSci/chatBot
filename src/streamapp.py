@@ -59,15 +59,31 @@ def main():
     # Affichage de l'historique des conversations
     for chat in reversed(st.session_state.history):
         user_message = f"""
-        <div style="text-align: right; background-color: #2471A3; padding: 10px; border-radius: 10px; margin: 10px 0;">
-            <b>Vous:</b> {chat['user']}
+        <div style="text-align: right; padding: 10px; margin: 10px 0;">
+            <div><b>Vous:</b></div>
+            <div style="background-color: #GREEN; border-radius: 10px; padding: 10px;">
+                {chat['user']}
+            </div>
         </div>
         """
         bot_message = f"""
-        <div style="text-align: left; background-color: #229954 ; padding: 10px; border-radius: 10px; margin: 10px 0;">
-            <b>Stem:</b> {chat['bot']}
+        <div style="text-align: left; padding: 10px; margin: 10px 0;">
+            <div><b>Stem:</b></div>
+            <div style="background-color: #BLUE; border-radius: 10px; padding: 10px;">
+                {chat['bot']}
+            </div>
         </div>
         """
+        # user_message = f"""
+        # <div style="text-align: right; background-color: #2471A3; padding: 10px; border-radius: 10px; margin: 10px 0;">
+        #     <b>Vous:</b> {chat['user']}
+        # </div>
+        # """
+        # bot_message = f"""
+        # <div style="text-align: left; background-color: #229954 ; padding: 10px; border-radius: 10px; margin: 10px 0;">
+        #     <b>Stem:</b> {chat['bot']}
+        # </div>
+        # """
         st.markdown(bot_message, unsafe_allow_html=True)
         st.markdown(user_message, unsafe_allow_html=True)
 
