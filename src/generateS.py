@@ -8,6 +8,10 @@ class Generate:
         self.memory = ChatbotMemory()
         self.running = False
         self.response = ""
+    
+    def remember(self, sauvegarde):
+        self.memory.update_memory(sauvegarde)
+        
 
     def ans(self, user_input) -> str:
         self.running = True
