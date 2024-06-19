@@ -66,7 +66,7 @@ def main():
         st.rerun()
     
     # Affichage de l'historique des conversations
-    # for chat in reversed(st.session_state.history):
+    for chat in reversed(st.session_state.history):
     #     user_message = f"""
     #     <div style="text-align: right; padding: 10px; margin: 10px 0;">
     #         <div><b>Vous:</b></div>
