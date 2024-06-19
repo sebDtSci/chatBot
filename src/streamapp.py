@@ -1,6 +1,6 @@
 import streamlit as st
 from generateS import Generate
-from saveConversation import save_conversation, load_conversations
+from saveConversation import save_conversation, load_conversations, delete_conversation
 from memory import ChatbotMemory
 import subprocess
 
@@ -32,7 +32,11 @@ def main():
     conversation_titles = conversations_df["Titre"].tolist()
     selected_conversation = st.sidebar.selectbox("Sélectionnez une conversation", conversation_titles)
     if st.sidebar.button("Load") and selected_conversation:
-        chatbot.remember(conversations_df)    
+        chatbot.remember(conversations_df)
+    if st.sidebar.button("Delete") and selected_conversation:
+        delete_conversation(selected_conversation)
+        st.rerun()
+        
         
 ##################################
     # Méthode 1:
@@ -97,6 +101,9 @@ def main():
     save_title = st.text_input("Sauvegarder la conversation en tant que :", key="save_title")
     if st.button("Save") and save_title:
         save_conversation(save_title, st.session_state.history)
+    if st.button("Save and reload") and save_title:
+        save_conversation(save_title, st.session_state.history)
+        st.rerun()
         
     
 if __name__ == "__main__":

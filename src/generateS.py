@@ -14,9 +14,9 @@ class Generate:
         try:
             for index, row in sauvegarde.iterrows():
                 self.memory.update_memory(row['user'], row['bot'])
-            st.success("Load !")
+            st.sidebar.success("Load !")
         except Exception as e:
-            st.error(f"Error : {e}")
+            st.sidebar.error(f"Error : {e}")
         
 
     def ans(self, user_input) -> str:

@@ -29,3 +29,12 @@ def load_conversations():
         return pd.read_csv("conversations.csv", sep=";")
     except FileNotFoundError:
         return pd.DataFrame(columns=["Date", "Titre", "Conversation"])
+
+def delete_conversation(title):
+    try:
+        df = load_conversations()
+        df = df[df["Titre"] != title]
+        df.to_csv("conversations.csv", index=False)
+        st.success("Conversation supprimée avec succès !")
+    except Exception as e:
+        st.error(f"Erreur lors de la suppression de la conversation: {e}")
