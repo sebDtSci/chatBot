@@ -102,20 +102,7 @@ def main():
     if "history" not in st.session_state:
         st.session_state.history = []
 
-    # Affichage de l'historique des conversations
-    for chat in reversed(st.session_state.history):
-        user_message = f"""
-        <div style="text-align: right; background-color: #GREEN; padding: 10px; border-radius: 10px; margin: 10px 0;">
-            <b>Vous:</b> {chat['user']}
-        </div>
-        """
-        bot_message = f"""
-        <div style="text-align: left; background-color: #BLUE; padding: 10px; border-radius: 10px; margin: 10px 0;">
-            <b>Stem:</b> {chat['bot']}
-        </div>
-        """
-        st.markdown(bot_message, unsafe_allow_html=True)
-        st.markdown(user_message, unsafe_allow_html=True)
+    
 
     user_input = st.text_input("You:", key="input")
 
@@ -141,6 +128,21 @@ def main():
         
         st.session_state.history[-1]["bot"] = response
         st.experimental_rerun()
+    
+    # Affichage de l'historique des conversations
+    for chat in reversed(st.session_state.history):
+        user_message = f"""
+        <div style="text-align: right; background-color: #GREEN; padding: 10px; border-radius: 10px; margin: 10px 0;">
+            <b>Vous:</b> {chat['user']}
+        </div>
+        """
+        bot_message = f"""
+        <div style="text-align: left; background-color: #BLUE; padding: 10px; border-radius: 10px; margin: 10px 0;">
+            <b>Stem:</b> {chat['bot']}
+        </div>
+        """
+        st.markdown(bot_message, unsafe_allow_html=True)
+        st.markdown(user_message, unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
