@@ -26,6 +26,14 @@ def main():
             response_generator = chatbot.ans(user_input)
             response = ""
             response_placeholder = st.empty()
+            
+            # écrit le message de l'utilisateur dans le streamlit
+            user_message = f"""
+            <div style="text-align: right; background-color: #GREEN; padding: 10px; border-radius: 10px; margin: 10px 0;">
+                <b>Vous:</b> {chat['user']}
+            </div>
+            """
+            st.markdown(user_message, unsafe_allow_html=True)
 
             for chunk in response_generator:
                 response += chunk
@@ -37,19 +45,19 @@ def main():
             
             st.session_state.history.append({"user": user_input, "bot": response})
 
-    for chat in reversed(st.session_state.history):
-        user_message = f"""
-        <div style="text-align: right; background-color: #GREEN; padding: 10px; border-radius: 10px; margin: 10px 0;">
-            <b>Vous:</b> {chat['user']}
-        </div>
-        """
+    # for chat in reversed(st.session_state.history):
+    #     user_message = f"""
+    #     <div style="text-align: right; background-color: #GREEN; padding: 10px; border-radius: 10px; margin: 10px 0;">
+    #         <b>Vous:</b> {chat['user']}
+    #     </div>
+    #     """
         # bot_message = f"""
         # <div style="text-align: left; background-color: #BLUE; padding: 10px; border-radius: 10px; margin: 10px 0;">
         #     <b>Stem:</b> {chat['bot']}
         # </div>
         # """
         # st.markdown(bot_message, unsafe_allow_html=True)
-        st.markdown(user_message, unsafe_allow_html=True)
+        # st.markdown(user_message, unsafe_allow_html=True)
         
 
 if __name__ == "__main__":
