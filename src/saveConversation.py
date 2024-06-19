@@ -3,7 +3,8 @@ from datetime import datetime
 import streamlit as st
 
 def save_conversation(title, history):
-    conversation = ""
+    user_conversation = ""
+    bot_conversation = ""
     for chat in history:
         user_conversation += chat['user']
         bot_conversation += chat['bot']
@@ -12,7 +13,7 @@ def save_conversation(title, history):
         "Date": [datetime.now().strftime("%Y-%m-%d %H:%M:%S")],
         "Titre": [title],
         "user": [user_conversation],
-        "bot": [conversation]
+        "bot": [bot_conversation]
     }
     df = pd.DataFrame(data)
     
