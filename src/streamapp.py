@@ -5,7 +5,7 @@ def main():
     st.title("Chatbot Interface with Memory")
     
     # model_name = "aya:35b"
-    model_options = ["aya:35b", "model2", "model3"]
+    model_options = ["aya:35b", "openchat:latest", "llama3:latest"]
     selected_model = st.selectbox("Choisissez le modèle", model_options)
 
     # if "chatbot" not in st.session_state:
@@ -28,12 +28,28 @@ def main():
             response_placeholder = st.empty()
             
             # écrit le message de l'utilisateur dans le streamlit
-            user_message = f"""
-            <div style="text-align: right; background-color: #GREEN; padding: 10px; border-radius: 10px; margin: 10px 0;">
-                <b>Vous:</b> {user_input}
-            </div>
-            """
-            st.markdown(user_message, unsafe_allow_html=True)
+            if st.session_state.history == []:
+                user_message = f"""
+                <div style="text-align: right; background-color: #GREEN; padding: 10px; border-radius: 10px; margin: 10px 0;">
+                    <b>Vous:</b> {user_input}
+                </div>
+                """
+                st.markdown(user_message, unsafe_allow_html=True)
+            else:
+                for chat in reversed(st.session_state.history):
+                    user_message = f"""
+                    <div style="text-align: right; background-color: #GREEN; padding: 10px; border-radius: 10px; margin: 10px 0;">
+                        <b>Vous:</b> {chat['user']}
+                    </div>
+                    """
+                    # bot_message = f"""
+                    # <div style="text-align: left; background-color: #BLUE; padding: 10px; border-radius: 10px; margin: 10px 0;">
+                    #     <b>Stem:</b> {chat['bot']}
+                    # </div>
+                    # """
+                    # st.markdown(bot_message, unsafe_allow_html=True)
+                    st.markdown(user_message, unsafe_allow_html=True)
+                
 
             for chunk in response_generator:
                 response += chunk
@@ -51,13 +67,13 @@ def main():
     #         <b>Vous:</b> {chat['user']}
     #     </div>
     #     """
-        # bot_message = f"""
-        # <div style="text-align: left; background-color: #BLUE; padding: 10px; border-radius: 10px; margin: 10px 0;">
-        #     <b>Stem:</b> {chat['bot']}
-        # </div>
-        # """
-        # st.markdown(bot_message, unsafe_allow_html=True)
-        # st.markdown(user_message, unsafe_allow_html=True)
+    #     bot_message = f"""
+    #     <div style="text-align: left; background-color: #BLUE; padding: 10px; border-radius: 10px; margin: 10px 0;">
+    #         <b>Stem:</b> {chat['bot']}
+    #     </div>
+    #     """
+    #     st.markdown(bot_message, unsafe_allow_html=True)
+    #     st.markdown(user_message, unsafe_allow_html=True)
         
 
 if __name__ == "__main__":
