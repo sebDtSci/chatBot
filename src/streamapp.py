@@ -91,10 +91,7 @@ def main():
     st.title("Chatbot Interface with Memory")
     
     model_options = ["aya:35b", "openchat:latest", "llama3:latest"]
-    selected_model = st.selectbox( f""" 
-                                  background-color: red
-                                  "Choisissez le modèle" 
-                                  """, model_options)
+    selected_model = st.selectbox("Choisissez le modèle" , model_options)
 
     if "chatbot" not in st.session_state or st.session_state.model_name != selected_model:
         st.session_state.chatbot = Generate(model=selected_model)
@@ -124,7 +121,7 @@ def main():
         for chunk in response_generator:
             response += chunk
             response_placeholder.markdown(f"""
-            <div style="text-align: left; background-color: blue; padding: 10px; border-radius: 10px; margin: 10px 0;">
+            <div style="text-align: left; background-color: lightblue; padding: 10px; border-radius: 10px; margin: 10px 0;">
                 <b>Stem:</b> {response}
             </div>
             """, unsafe_allow_html=True)
@@ -135,7 +132,7 @@ def main():
     # Affichage de l'historique des conversations
     for chat in reversed(st.session_state.history):
         user_message = f"""
-        <div style="text-align: right; background-color: #GREEN; padding: 10px; border-radius: 10px; margin: 10px 0;">
+        <div style="text-align: right; background-color: green; padding: 10px; border-radius: 10px; margin: 10px 0;">
             <b>Vous:</b> {chat['user']}
         </div>
         """
