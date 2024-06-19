@@ -10,7 +10,8 @@ class Generate:
         self.response = ""
     
     def remember(self, sauvegarde):
-        self.memory.update_memory(sauvegarde)
+        for lines in sauvegarde:
+            self.memory.update_memory(lines['user'], lines['bot'])
         
 
     def ans(self, user_input) -> str:

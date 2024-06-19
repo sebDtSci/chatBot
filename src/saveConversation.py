@@ -1,15 +1,18 @@
 import pandas as pd
 from datetime import datetime
+import streamlit as st
 
 def save_conversation(title, history):
     conversation = ""
     for chat in history:
-        conversation += f"Vous: {chat['user']}\nStem: {chat['bot']}\n"
+        user_conversation += chat['user']
+        bot_conversation += chat['bot']
     
     data = {
         "Date": [datetime.now().strftime("%Y-%m-%d %H:%M:%S")],
         "Titre": [title],
-        "Conversation": [conversation]
+        "user": [user_conversation],
+        "bot": [conversation]
     }
     df = pd.DataFrame(data)
     
