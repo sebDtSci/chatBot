@@ -1,5 +1,5 @@
 import ollama
-from src.memory import ChatbotMemory
+from memory import ChatbotMemory
 import streamlit as st
 
 class Generate:

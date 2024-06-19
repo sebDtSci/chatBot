@@ -1,7 +1,7 @@
 import streamlit as st
-from src.generateS import Generate
-from src.saveConversation import save_conversation, load_conversations
-from src.memory import ChatbotMemory
+from generateS import Generate
+from saveConversation import save_conversation, load_conversations
+from memory import ChatbotMemory
 
 def main():
     st.title("Chatbot Interface with Memory")
