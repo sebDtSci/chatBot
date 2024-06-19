@@ -12,8 +12,8 @@ class Generate:
     
     def remember(self, sauvegarde):
         try:
-            for lines in sauvegarde:
-                self.memory.update_memory(lines['user'], lines['bot'])
+            for index, row in sauvegarde.iterrows():
+                self.memory.update_memory(row['user'], row['bot'])
             st.success("Load !")
         except Exception as e:
             st.error(f"Error : {e}")
