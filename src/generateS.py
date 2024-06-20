@@ -1,5 +1,5 @@
 import ollama
-from memory import ChatbotMemory
+from src.memory import ChatbotMemory
 import streamlit as st
 import os
 # Désactiver le parallélisme pour éviter les deadlocks
