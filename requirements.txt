@@ -2,3 +2,4 @@ ollama
 transformers
 streamlit
 pandas
+tf-keras

@@ -1,7 +1,7 @@
 import streamlit as st
 from generateS import Generate
 from saveConversation import save_conversation, load_conversations, delete_conversation
-from memory import ChatbotMemory
+# from memory import ChatbotMemory
 import subprocess
 
 def get_model_list():
@@ -9,6 +9,10 @@ def get_model_list():
     lines = result.stdout.strip().split('\n')
     models = [line.split()[0] for line in lines[1:]] 
     return models
+
+def get_conversation_history(sauvegarde):
+    for index, row in sauvegarde.iterrows():
+        st.session_state.history.append({"user": row['user'], "bot": row['bot']})
 
 def main():
     st.title("Chatbot Interface with Memory")
@@ -33,19 +37,11 @@ def main():
     selected_conversation = st.sidebar.selectbox("Sélectionnez une conversation", conversation_titles)
     if st.sidebar.button("Load") and selected_conversation:
         chatbot.remember(conversations_df)
+        get_conversation_history(conversations_df)
     if st.sidebar.button("Delete") and selected_conversation:
         delete_conversation(selected_conversation)
         st.rerun()
         
-        
-##################################
-    # Méthode 1:
-    # user_input = st.text_input("You:", key="input")
-    # if st.button("Send") and user_input:
-    #     # Afficher le message de l'utilisateur immédiatement
-    #     st.session_state.history.append({"user": user_input, "bot": ""})
-    #     st.rerun()
-    # Méthode 2:
     with st.form('question', clear_on_submit=True):
         # text_area pour gérer la taille de manière dynamique
         user_input = st.text_area("You:", key="input", height=100)
@@ -54,7 +50,6 @@ def main():
     if submitted and user_input:
         st.session_state.history.append({"user": user_input, "bot": ""})
         st.rerun()
-##################################
 
     # Gestion des réponses du chatbot après l'envoi du message
     if st.session_state.history and st.session_state.history[-1]["bot"] == "":
@@ -99,9 +94,7 @@ def main():
         st.markdown(user_message, unsafe_allow_html=True)
 
     save_title = st.text_input("Sauvegarder la conversation en tant que :", key="save_title")
-    # if st.button("Save") and save_title:
-    #     save_conversation(save_title, st.session_state.history)
-    if st.button("Save and reload") and save_title:
+    if st.button("Save") and save_title:
         save_conversation(save_title, st.session_state.history)
         st.rerun()
         
