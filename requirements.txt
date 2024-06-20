@@ -3,3 +3,6 @@ transformers
 streamlit
 pandas
 tf-keras
+chromadb
+torch
+python-docx

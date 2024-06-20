@@ -2,7 +2,7 @@ import pandas as pd
 from datetime import datetime
 import streamlit as st
 
-def save_conversation(title, history):
+def save_conversation(title, history)->None:
     user_conversation = ""
     bot_conversation = ""
     for chat in history:
@@ -24,13 +24,13 @@ def save_conversation(title, history):
     except Exception as e:
         st.error(f"Erreur lors de la sauvegarde de la conversation: {e}")
         
-def load_conversations():
+def load_conversations()->pd.DataFrame:
     try:
         return pd.read_csv("data/conversations.csv", sep=";")
     except FileNotFoundError:
         return pd.DataFrame(columns=["Date", "Titre", "Conversation"])
 
-def delete_conversation(title):
+def delete_conversation(title)->None:
     try:
         df = load_conversations()
         df = df[df["Titre"] != title]
