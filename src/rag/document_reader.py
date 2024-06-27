@@ -14,3 +14,12 @@ def read_docx(file_path):
 word_doc = read_docx("data/documents_to_rag")
 
 print(word_doc)
+
+
+# # Ajouter des documents
+# documents = [
+#     {"id": "1", "text": "This is the first document."},
+#     {"id": "2", "text": "This is the second document."},
+#     # Ajoutez autant de documents que nécessaire
+# ]
+
