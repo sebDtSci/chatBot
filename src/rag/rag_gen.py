@@ -1,32 +1,35 @@
 import chromadb
+print(dir(chromadb))
 from chromadb.config import Settings
 # from src.rag.document_reader import read_docx
 # from transformers import AutoModelForCausalLM, AutoTokenizer
 import ollama
-from ollama.pipeline import Pipeline
+print(dir(ollama))
+# from ollama.pipeline import Pipeline
+# from ollama import Pipeline 
 from dataBase_gen import generate_embedding
-from document_reader import read_docx, reader
+from document_reader import reader
 
 Settings = Settings()
 client = chromadb.Client(Settings)
 collection = client.create_collection("documents")
 
 # TODO: toujours utiliser le même tokenisateur
-name_model = 'openchat:latest'
-model = ollama.Model(name_model)
+# name_model = 'openchat:latest'
+# model = ollama.Model(name_model)
 
 documents = reader("data/documents_to_rag")
-print(documents)
+# print(documents)
 
 for doc in documents:
-    embedding = generate_embedding(doc['text'])
+    embedding = generate_embedding(doc[0])
     collection.add(doc['id'], embedding, doc)
     
     
-def generate_response(context, query):
-    pipeline = Pipeline(model)
-    response = pipeline.run(context + "\n\n" + query)
-    return response
+# def generate_response(context, query):
+#     pipeline = Pipeline(model)
+#     response = pipeline.run(context + "\n\n" + query)
+#     return response
 
 def search_documents(query):
     query_embedding = generate_embedding(query)
@@ -39,8 +42,9 @@ def rag_pipeline(query):
     context = "\n".join([doc['text'] for doc in results])
 
     # Génération de la réponse avec Ollama
-    response = generate_response(context, query)
-    return response
+    # response = generate_response(context, query)
+    # print(context)
+    return context
 
 # Exemple d'utilisation
 query = "A quelle vitesse dois je aller pour voyager dans le temps ?"

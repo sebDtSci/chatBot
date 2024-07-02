@@ -1,8 +1,8 @@
-from chromadb.embedding import Embedding
-from chromadb.vectorizer import Vectorizer
+from chromadb import Embeddings
+# from chromadb import Vectorizer
 import ollama
 
 def generate_embedding(text):
-    vectorizer = Vectorizer()
+    vectorizer = Embeddings()
     return vectorizer.vectorize(text)
 
