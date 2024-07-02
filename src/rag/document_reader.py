@@ -13,6 +13,18 @@ def read_docx(file_path):
 
 word_doc = read_docx("data/documents_to_rag")
 
+def reader(file_path:str):
+    documents = []
+    for file in os.listdir(file_path):
+        if file.endswith(".txt"):
+            doc_path = os.path.join(file_path, file)
+            doc = Document(doc_path)
+            file = open(doc_path, "r")
+            file = file.read()
+            documents.append({"id": file, "content": file})
+    return documents
+    
+
 print(word_doc)
 
 

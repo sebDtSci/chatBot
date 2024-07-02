@@ -1,3 +1,3 @@
 __pycache__/
 venv/
-document_to_rag/
+document_to_rag/*
