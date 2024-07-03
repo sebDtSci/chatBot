@@ -71,6 +71,7 @@ class Generate:
             stream=True,
             options=self._ollama_option
         )
+        print(f"Response generated. with model : {self.model}")
         logging.info(f"Response generated. with model : {self.model}")
         
         self.response = ""

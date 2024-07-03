@@ -4,7 +4,7 @@ import time
 import chromadb
 from chromadb.config import Settings
 from src.rag.document_reader import reader
-from src.rag.dataBase_gen import generate_embedding
+from src.rag.enbedding import filtre_augmented
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
@@ -52,10 +52,26 @@ def monitor_directory(directory):
     observer.join()
 
 def rag_pipeline(query:str) ->str :
-    res = collection.query(query_texts=query, n_results=1)
-    res = res["documents"]
-    context = "".join([j for i in res for j in i])
-    return context
+    # chroma enbed query grace à query_texts, c'est juste incroyable
+    res = collection.query(query_texts=query, n_results=5)
+    res_doc = res["documents"]
+    best_context = filtre_augmented(query, res_doc)
+
+    if best_context:
+        print(f'Context Found ! {len(best_context)}')
+        print('best cont ', best_context)
+        return best_context
+    else :
+        return ""
+
+    # res = collection.query(query_texts=query, n_results=5)
+    # if res != None:
+    #     res = res["documents"]
+    #     context = "".join([j for i in res for j in i])
+    #     print(f'Context Found ! {len(context)}')
+    #     return context
+    # else :
+    #     return ""
 
 if __name__ == "__main__":
     monitor_directory("data/documents_to_rag")
