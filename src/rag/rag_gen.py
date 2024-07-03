@@ -6,7 +6,7 @@ from chromadb.config import Settings
 import ollama
 print(dir(ollama))
 # from ollama.pipeline import Pipeline
-# from ollama import Pipeline 
+# from ollama import Pipeline
 from dataBase_gen import generate_embedding
 from document_reader import reader
 
@@ -22,7 +22,8 @@ documents = reader("data/documents_to_rag")
 # print(documents)
 
 for doc in documents:
-    embedding = generate_embedding(doc[0])
+    # embedding = generate_embedding(doc[0])
+    embedding = generate_embedding(doc['content'])
     collection.add(doc['id'], embedding, doc)
     
     

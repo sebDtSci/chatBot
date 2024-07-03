@@ -20,8 +20,8 @@ def reader(file_path:str):
             doc_path = os.path.join(file_path, file)
             file = open(doc_path, "r")
             file = file.read()
-            # documents.append({"id": file, "content": file})
-            documents.append(file)
+            documents.append({"id": file, "content": file})
+            # documents.append(file)
     return documents
     
 
