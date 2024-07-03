@@ -1,4 +1,5 @@
 import os
+# from dotenv import load_dotenv
 import time
 import chromadb
 from chromadb.config import Settings
@@ -7,8 +8,13 @@ from src.rag.dataBase_gen import generate_embedding
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
+STORAGE_PATH="data/db"
+if STORAGE_PATH is None:
+    raise ValueError('STORAGE_PATH environment variable is not set')
+
 # Initialize Chroma
-chromadb_client = chromadb.Client(Settings(persistence=True, db_path="data/db",embedding_model="openai"))
+# chromadb_client = chromadb.Client(Settings())
+chromadb_client = chromadb.PersistentClient(path=STORAGE_PATH)
 collection = chromadb_client.create_collection("documents")
 
 # Add documents
