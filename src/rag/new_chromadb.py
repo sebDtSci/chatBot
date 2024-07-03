@@ -4,7 +4,6 @@ import time
 import chromadb
 from chromadb.config import Settings
 from src.rag.document_reader import reader
-from src.rag.enbedding import filtre_augmented
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
@@ -16,7 +15,8 @@ if STORAGE_PATH is None:
 # chromadb_client = chromadb.Client(Settings())
 chromadb_client = chromadb.PersistentClient(path=STORAGE_PATH)
 # collection = chromadb_client.create_collection("documentsTest")
-collection = chromadb_client.get_or_create_collection(name = "documentsTest")
+# par default c'est Squared L2
+collection = chromadb_client.get_or_create_collection(name = "documentsTest", metadata={"hnsw:space": "cosine"})
 
 
 # Add documents
@@ -64,10 +64,11 @@ def rag_pipeline(query:str) ->str :
     # else :
     #     return ""
 
-    res = collection.query(query_texts=query, n_results=5)
+    res = collection.query(query_texts=query, n_results=1)
     print('res ', res)
     if res != None:
         res = res["documents"]
+        dist = {'id':res["ids"], "distance":res["distances"]}
         context = "".join([j for i in res for j in i])
         print(f'Context Found ! {len(context)}')
         return context
