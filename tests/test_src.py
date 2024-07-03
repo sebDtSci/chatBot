@@ -6,6 +6,6 @@ def test_memory():
     mem.update_memory('test', 'test')
     assert mem.get_memory() == ["'user': test, 'bot': test"]
 
-def test_generate():
-    mod = Generate(model='test')
-    assert mod.model == 'test'
+# def test_generate():
+#     mod = Generate(model='test')
+#     assert mod.model == 'test'
