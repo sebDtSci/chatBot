@@ -4,8 +4,12 @@ from src.memory import ChatbotMemory, memory_counter, compressed_memory
 from src.rag.new_chromadb import rag_pipeline
 import streamlit as st
 import os
+
 # Désactiver le parallélisme pour éviter les deadlocks
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
+
+# Param logger
+logging.basicConfig(filename="app.log" , filemode="w", level=logging.DEBUG)
 
 class Generate:
     def __init__(self, model:str="openchat:latest", ollama_options=None):
