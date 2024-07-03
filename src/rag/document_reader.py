@@ -41,5 +41,4 @@ def reader(file_path:str)-> list:
     documents.extend(read_docx(file_path))
     documents.extend(read_txt(file_path))
     documents.extend(read_pdf(file_path))
-    print(documents)
     return documents

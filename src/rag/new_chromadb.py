@@ -19,7 +19,9 @@ collection = chromadb_client.create_collection("documents")
 
 # Add documents
 documents = reader("data/documents_to_rag")
-collection.add(documents=documents["content"],ids=documents["id"])
+contents = [doc["content"] for doc in documents]
+ids = [doc["id"] for doc in documents]
+collection.add(documents=contents,ids=ids)
 
 class NewFileHandler(FileSystemEventHandler):
     def on_created(self, event):
