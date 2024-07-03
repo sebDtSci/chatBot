@@ -1,7 +1,7 @@
 import chromadb
 from chromadb.config import Settings
 
-from document_reader import reader
+from src.rag.document_reader import reader
 
 chromadb_client = chromadb.Client(Settings())
 
