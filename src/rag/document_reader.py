@@ -18,9 +18,9 @@ def reader(file_path:str):
     for file in os.listdir(file_path):
         if file.endswith(".txt"):
             doc_path = os.path.join(file_path, file)
-            file = open(doc_path, "r")
-            file = file.read()
-            documents.append({"id": file, "content": file})
+            cont = open(doc_path, "r")
+            cont = cont.read()
+            documents.append({"id": file, "content": cont})
             # documents.append(file)
     return documents
     

@@ -22,11 +22,11 @@ documents = reader("data/documents_to_rag")
 # print(documents)
 
 for doc in documents:
-    # embedding = generate_embedding(doc[0])
-    embedding = generate_embedding(doc['content'])
-    collection.add(doc['id'], embedding, doc)
+    # embedding = generate_embedding(doc['content'])
+    # collection.add(doc['id'], embedding, doc)
+    collection.add(documents=doc["content"],ids=doc["id"])
     
-    
+print(collection)
 # def generate_response(context, query):
 #     pipeline = Pipeline(model)
 #     response = pipeline.run(context + "\n\n" + query)
@@ -34,13 +34,13 @@ for doc in documents:
 
 def search_documents(query):
     query_embedding = generate_embedding(query)
-    results = collection.query(query_embedding, top_k=5)
+    results = collection.query(query_embedding, n_results=5)
     return results
 
 def rag_pipeline(query):
     # Recherche de documents pertinents
     results = search_documents(query)
-    context = "\n".join([doc['text'] for doc in results])
+    context = "\n".join([doc['content'] for doc in results])
 
     # Génération de la réponse avec Ollama
     # response = generate_response(context, query)

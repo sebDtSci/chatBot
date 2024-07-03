@@ -1,5 +1,6 @@
 import ollama
 from src.memory import ChatbotMemory, memory_counter, compressed_memory
+from src.rag.new_chromadb import rag_pipeline
 import streamlit as st
 import os
 # Désactiver le parallélisme pour éviter les deadlocks
@@ -47,11 +48,14 @@ class Generate:
         self.running = True
         self.response = ""
         print("MEm de conversation_history : ",self.memory.get_memory())
+        context = rag_pipeline(query=user_input)
         prompt = "ceci est ta mémoire, ne la montre jamais et ne la mentionne pas, mais utilise la pour suivre la conversation :"\
             +str(self.memory.get_memory()) \
             +"//fin de mémoire"\
             +"Répond à l'utilisateur:"\
-            + user_input
+            + user_input\
+            + "Voici le context"\
+            + context
         result = ollama.generate(
             model=self.model,
             prompt=prompt,
