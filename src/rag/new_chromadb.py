@@ -15,7 +15,9 @@ if STORAGE_PATH is None:
 # Initialize Chroma
 # chromadb_client = chromadb.Client(Settings())
 chromadb_client = chromadb.PersistentClient(path=STORAGE_PATH)
-collection = chromadb_client.create_collection("documents")
+# collection = chromadb_client.create_collection("documentsTest")
+collection = chromadb_client.get_or_create_collection(name = "documentsTest")
+
 
 # Add documents
 documents = reader("data/documents_to_rag")
