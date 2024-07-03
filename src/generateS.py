@@ -49,13 +49,16 @@ class Generate:
         self.response = ""
         print("MEm de conversation_history : ",self.memory.get_memory())
         context = rag_pipeline(query=user_input)
-        prompt = "ceci est ta mémoire, ne la montre jamais et ne la mentionne pas, mais utilise la pour suivre la conversation :"\
-            +str(self.memory.get_memory()) \
-            +"//fin de mémoire"\
-            +"Répond à l'utilisateur:"\
-            + user_input\
-            + "Voici le context: "\
-            + context
+        prompt = (
+            "Vous êtes un assistant intelligent. Utilisez les informations suivantes pour aider l'utilisateur.\n\n"
+            "Mémoire du chatbot (à ne pas montrer à l'utilisateur) :\n"
+            f"{self.memory.get_memory()}\n\n"
+            "Contexte pertinent :\n"
+            f"{context}\n\n"
+            "Question de l'utilisateur :\n"
+            f"{user_input}\n\n"
+            "Répondez de manière claire et concise :\n"
+        )
         result = ollama.generate(
             model=self.model,
             prompt=prompt,

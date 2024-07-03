@@ -6,3 +6,4 @@ tf-keras
 chromadb
 torch
 python-docx
+PyMuPDF
