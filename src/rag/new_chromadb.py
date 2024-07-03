@@ -73,11 +73,11 @@ def rag_pipeline(query:str) ->str :
     if min(res_dist[0]) < 0.8:
         sorted_idex = np.argsort(res_dist[0])
         closet_idex = sorted_idex[0]
-        best_doc = res_doc[0][closet_idex]
-    if best_doc != None:
-        context = "".join([j for i in res_doc for j in i])
-        print(f'Context Found ! {len(context)}')
-        return context
+        best_doc:str = res_doc[0][closet_idex]
+        if best_doc != None:
+            context = "".join([j for i in res_doc for j in i])
+            print(f'Context Found ! {len(context)}')
+            return context
     else :
         return ""
 
