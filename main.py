@@ -3,10 +3,10 @@ import subprocess
 import time
 
 def init_db():
-    subprocess.run(["python", "rag/new_chromadb.py"])
+    subprocess.run(["python", "src/rag/new_chromadb.py"])
 
 def run_app():
-    subprocess.run(["streamlit", "run", "streamapp.py"])
+    subprocess.run(["streamlit", "run", "src/streamapp.py"])
     
 if __name__ == "__main__":
     db_thread = threading.Thread(target=init_db)
