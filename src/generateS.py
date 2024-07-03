@@ -54,8 +54,8 @@ class Generate:
             +"//fin de mémoire"\
             +"Répond à l'utilisateur:"\
             + user_input\
-            + "Voici le context"\
-            + context
+            + "Voici le context: "\
+            + context["documents"]
         result = ollama.generate(
             model=self.model,
             prompt=prompt,

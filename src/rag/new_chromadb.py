@@ -16,4 +16,4 @@ print(res)
 print(res["documents"])
 
 def rag_pipeline(query:str) ->str :
-    return collection.query(query_texts=query["documents"], n_results=1)
+    return collection.query(query_texts=query, n_results=1)
