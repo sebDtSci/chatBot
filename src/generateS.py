@@ -55,7 +55,7 @@ class Generate:
             +"Répond à l'utilisateur:"\
             + user_input\
             + "Voici le context: "\
-            + context["documents"]
+            + context
         result = ollama.generate(
             model=self.model,
             prompt=prompt,
