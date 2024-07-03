@@ -6,6 +6,7 @@ from chromadb.config import Settings
 from src.rag.document_reader import reader
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
+import numpy as np
 
 STORAGE_PATH="data/db"
 if STORAGE_PATH is None:
@@ -65,11 +66,16 @@ def rag_pipeline(query:str) ->str :
     #     return ""
 
     res = collection.query(query_texts=query, n_results=1)
-    print('res ', res)
-    if res != None:
-        res = res["documents"]
-        dist = {'id':res["ids"], "distance":res["distances"]}
-        context = "".join([j for i in res for j in i])
+    # print('res ', res)
+    res_doc = res["documents"]
+    res_ids = res["ids"]
+    res_dist = res["distances"]
+    if min(res_dist[0]) < 0.8:
+        sorted_idex = np.argsort(res_dist[0])
+        closet_idex = sorted_idex[0]
+        best_doc = res_doc[0][closet_idex]
+    if best_doc != None:
+        context = "".join([j for i in res_doc for j in i])
         print(f'Context Found ! {len(context)}')
         return context
     else :
