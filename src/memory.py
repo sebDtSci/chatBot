@@ -1,4 +1,10 @@
+import torch
 from transformers import pipeline
+
+if torch.cuda.is_available():
+    device = 0
+else:
+    device = -1
 
 class ChatbotMemory:
     def __init__(self, conv:list = []):
@@ -36,7 +42,7 @@ def get_compressed_memory(sentence:str)->str:
     Returns:
         str: The compressed summary of the input sentence.
     """
-    summarizer = pipeline("summarization",model="facebook/bart-large-cnn")
+    summarizer = pipeline("summarization",model="facebook/bart-large-cnn",device=device)
     summary = summarizer(sentence, max_length=50, min_length=5, do_sample=False)
     return summary[0]['summary_text']
 

@@ -12,8 +12,8 @@ for doc in documents:
     collection.add(documents=doc["content"],ids=doc["id"])
 
 res = collection.query(query_texts="A quelle vitesse dois je aller pour voyager dans le temps ?", n_results=1)
-print(res)
-print(res["documents"])
+# print(res)
+# print(res["documents"])
 
 def rag_pipeline(query:str) ->str :
     res = collection.query(query_texts=query, n_results=1)
