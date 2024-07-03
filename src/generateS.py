@@ -1,4 +1,5 @@
 import ollama
+import logging
 from src.memory import ChatbotMemory, memory_counter, compressed_memory
 from src.rag.new_chromadb import rag_pipeline
 import streamlit as st
@@ -7,7 +8,7 @@ import os
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 class Generate:
-    def __init__(self, model, ollama_options=None):
+    def __init__(self, model:str="openchat:latest", ollama_options=None):
         self.model = model
         self._ollama_option = ollama_options if ollama_options else {'temperature': 1}
         self.memory = ChatbotMemory()
@@ -66,6 +67,7 @@ class Generate:
             stream=True,
             options=self._ollama_option
         )
+        logging.info(f"Response generated. with model : {self.model}")
         
         self.response = ""
         for chunk in result:
@@ -81,5 +83,6 @@ class Generate:
             self.memory = ChatbotMemory(compressed_memory(self.memory.get_memory()))
             print("Compressed conversation_history : ",self.memory.get_memory())
             self.suma_on_run = False
+            logging.info("Memory compressed.")
 
         self.running = False

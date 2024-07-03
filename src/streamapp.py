@@ -19,7 +19,7 @@ def main():
 
     model_options = get_model_list()
     # model_options = ["aya:35b", "openchat:latest", "llama3:latest"]
-    selected_model = st.selectbox("Choisissez le modèle" , model_options)
+    selected_model = st.selectbox("Choisissez le modèle" , model_options, placeholder="openchat:latest selected by default")
 
     if "chatbot" not in st.session_state or st.session_state.model_name != selected_model:
         st.session_state.chatbot = Generate(model=selected_model)

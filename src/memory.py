@@ -1,5 +1,6 @@
 import torch
 from transformers import pipeline
+import logging
 
 if torch.cuda.is_available():
     device:int = 0
@@ -24,6 +25,7 @@ class ChatbotMemory:
         self.conversation_history.append(f"'user': {user_input}, 'bot': {bot_response}")
         if len(self.conversation_history) > MAX_MEMORY_SIZE:
             self.conversation_history.pop(0)
+            logging.info("Memory trimmed.")
 
     def get_memory(self):
         """
