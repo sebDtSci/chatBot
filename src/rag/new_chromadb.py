@@ -17,5 +17,9 @@ print(res["documents"])
 
 def rag_pipeline(query:str) ->str :
     res = collection.query(query_texts=query, n_results=1)
-    context = "\n".join([doc["documents"] for doc in res])
+    res = res["documents"]
+    # context = "\n".join([doc["documents"] for doc in res])
+    context = "\n".join(res)
+
+
     return context
