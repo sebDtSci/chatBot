@@ -53,25 +53,26 @@ def monitor_directory(directory):
 
 def rag_pipeline(query:str) ->str :
     # chroma enbed query grace à query_texts, c'est juste incroyable
-    res = collection.query(query_texts=query, n_results=5)
-    res_doc = res["documents"]
-    best_context = filtre_augmented(query, res_doc)
-
-    if best_context:
-        print(f'Context Found ! {len(best_context)}')
-        print('best cont ', best_context)
-        return best_context
-    else :
-        return ""
-
     # res = collection.query(query_texts=query, n_results=5)
-    # if res != None:
-    #     res = res["documents"]
-    #     context = "".join([j for i in res for j in i])
-    #     print(f'Context Found ! {len(context)}')
-    #     return context
+    # res_doc = res["documents"]
+    # best_context = filtre_augmented(query, res_doc)
+
+    # if best_context:
+    #     print(f'Context Found ! {len(best_context)}')
+    #     print('best cont ', best_context)
+    #     return best_context
     # else :
     #     return ""
+
+    res = collection.query(query_texts=query, n_results=5)
+    print('res ', res)
+    if res != None:
+        res = res["documents"]
+        context = "".join([j for i in res for j in i])
+        print(f'Context Found ! {len(context)}')
+        return context
+    else :
+        return ""
 
 if __name__ == "__main__":
     monitor_directory("data/documents_to_rag")
