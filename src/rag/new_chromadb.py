@@ -52,31 +52,19 @@ def monitor_directory(directory):
         observer.stop()
     observer.join()
 
-def rag_pipeline(query:str) ->str :
-    # chroma enbed query grace à query_texts, c'est juste incroyable
-    # res = collection.query(query_texts=query, n_results=5)
-    # res_doc = res["documents"]
-    # best_context = filtre_augmented(query, res_doc)
-
-    # if best_context:
-    #     print(f'Context Found ! {len(best_context)}')
-    #     print('best cont ', best_context)
-    #     return best_context
-    # else :
-    #     return ""
-
-    res = collection.query(query_texts=query, n_results=1)
-    # print('res ', res)
+def rag_pipeline(query:str) -> str :
+    res = collection.query(query_texts=query, n_results=3)
     res_doc = res["documents"]
     res_ids = res["ids"]
     res_dist = res["distances"]
-    if min(res_dist[0]) < 0.8:
+    if min(res_dist[0]) < 0.7:
         sorted_idex = np.argsort(res_dist[0])
         closet_idex = sorted_idex[0]
         best_doc:str = res_doc[0][closet_idex]
-        if best_doc != None:
-            context = "".join([j for i in res_doc for j in i])
-            print(f'Context Found ! {len(context)}')
+        best_id:str = res_ids[0][closet_idex]
+        if best_doc is not None:
+            context = "".join([j for i in best_doc for j in i])
+            print(f'Context Found ! {len(context)} from {best_id}')
             return context
     else :
         return ""
