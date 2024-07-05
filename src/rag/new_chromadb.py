@@ -68,6 +68,8 @@ def rag_pipeline(query:str) -> str :
             return context
     else :
         return ""
+# Use for debug
+# rag_pipeline("qui est luck ?")
 
 if __name__ == "__main__":
     monitor_directory("data/documents_to_rag")
