@@ -42,7 +42,7 @@ class Generate:
             st.sidebar.error(f"Error : {e}")
         
 
-    def ans(self, user_input="l'assurance de manon qui à 34 ans et qui habite à paris"):
+    def ans(self, user_input="l'assurance de manon qui à 34 ans et qui habite à paris"): # Debug modification
         """
         Generates a response from the Chatbot based on the user input and updates the Chatbot's memory.
 
@@ -62,7 +62,7 @@ class Generate:
         # BRMS Integration #
         ####################
         if "assurance" in user_input:
-            
+            # payload = {"__DecisionID__": "exampleID","contract": {"id": 12345,"clients": [{"nom": nom,"prenom": prenom,"age": age,"adresse": adresse}],"montant": 0}}
             request = ("Extrait les informations suivantes au format liste suivant :\n [Nom , Prenom , Age , Adresse]. Si manquante laisser vide.\n\n Ne répond rien d'autre que la liste.")
             result = ollama.generate(
             model=self.model,
@@ -71,6 +71,7 @@ class Generate:
             options=self._ollama_option
             )
             
+            def payload_construction(nom,prenom,age,adresse):
             
             pc.payload_construction(nom="Dupont", prenom="Jean", age=23, adresse="123 Rue Exemple, Paris")
             
