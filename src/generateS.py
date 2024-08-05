@@ -5,8 +5,6 @@ from src.rag.new_chromadb import rag_pipeline
 import streamlit as st
 import os
 
-import src.brmsAPI.api as ap
-import src.brmsAPI.payload_construction as pc
 
 # Désactiver le parallélisme pour éviter les deadlocks
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
@@ -41,7 +39,6 @@ class Generate:
         except Exception as e:
             st.sidebar.error(f"Error : {e}")
         
-
     def ans(self, user_input="l'assurance de manon qui à 34 ans et qui habite à paris"): # Debug modification
         """
         Generates a response from the Chatbot based on the user input and updates the Chatbot's memory.
@@ -56,34 +53,6 @@ class Generate:
         self.running = True
         self.response = ""
         print("MEm de conversation_history : ",self.memory.get_memory())
-        
-        
-        ####################
-        # BRMS Integration #
-        ####################
-        if "assurance" in user_input:
-            # payload = {"__DecisionID__": "exampleID","contract": {"id": 12345,"clients": [{"nom": nom,"prenom": prenom,"age": age,"adresse": adresse}],"montant": 0}}
-            request = ("Extrait les informations suivantes au format liste suivant :\n [Nom , Prenom , Age , Adresse]. Si manquante laisser vide.\n\n Ne répond rien d'autre que la liste.")
-            result = ollama.generate(
-            model=self.model,
-            prompt=request,
-            stream=False,
-            options=self._ollama_option
-            )
-            
-            def payload_construction(nom,prenom,age,adresse):
-            
-            pc.payload_construction(nom="Dupont", prenom="Jean", age=23, adresse="123 Rue Exemple, Paris")
-            
-            api = ap.ApiCall(url="http://localhost:9090/DecisionService/rest/v1/assurance_deploy/OD_assurance/", payload, headers={'Content-Type': 'application/json'})
-            test_completion = api.test_arguments()
-            if test_completion is not None:
-                sentence = "Tu dois indiquer à ton interlocuteur que tu ne peux pas répondre pour la raison suivante : ", test_completion
-            else:
-                rep = "D'après les informations que tu as renseignée la réponse est : ", api.call_api()
-        ####################
-        
-        
         context = rag_pipeline(query=user_input)
         prompt = (
             "Vous êtes un assistant intelligent. Utilisez les informations suivantes pour aider l'utilisateur.\n\n"
