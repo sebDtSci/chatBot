@@ -19,6 +19,7 @@ chromadb_client = chromadb.PersistentClient(path=STORAGE_PATH)
 # par default c'est Squared L2
 collection = chromadb_client.get_or_create_collection(name = "documentsTest", metadata={"hnsw:space": "cosine"})
 
+# TODO: Add embedding function to optimize the similarity search 
 
 # Add documents
 documents = reader("data/documents_to_rag")
